@@ -5,6 +5,7 @@
     - [Login](#login)
     - [Get Latest Version](#get-latest-version)
     - [Get Version Changelog](#get-version-changelog)
+    - [Get Schedules](#get-schedules)
 	- [Get Zoos](#get-zoos)
 	- [Get Habitats](#get-habitats)
 	- [Get Meets](#get-meets)
