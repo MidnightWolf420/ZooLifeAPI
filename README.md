@@ -8,21 +8,25 @@
 
 ## Installation
 ```
-npm install ZooLifeAPI@MidnightWolf420 --save
+npm install MidnightWolf420/ZooLifeAPI --save
 ```
 
 ## Common Usage
 
+```js
+const { getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabitats, getMeets } = require('zoolife_api')
+```
+
 ### Get Zoos
 
 ```js
-zoolife.getZoos().then(async(json) => {
+getZoos().then(async(json) => {
     console.log(json)
 })
 ```
 or
 ```js
-zoolife.getZoos("Toronto Zoo").then(async(json) => {
+getZoos("Toronto Zoo").then(async(json) => {
     console.log(json)
 })
 ```
