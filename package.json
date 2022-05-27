@@ -1,6 +1,6 @@
 {
   "name": "zoolife_api",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Zoo Life API",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,9 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MidnightWolf420/ZooLifeAPI.git"
   }
 }
