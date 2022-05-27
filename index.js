@@ -2,6 +2,22 @@ const axios = require('axios');
 
 var api = "https://www.zoolife.tv/api/";
 
+function getCookie(cname, cookies) {
+    let name = cname + "=";
+    let decodedCookie = cookies;
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 async function getZooSlug(name) {
     if(!name){ name = this; }
     if(/([a-z]|[0-9]){1,}(-([a-z]|[0-9]){1,}){0,}/.test(name)&&!name.includes(" ")) {
@@ -76,11 +92,9 @@ function compareTwoStrings(second, first) {
 
 async function getZoos(zoo) {
     return new Promise(async function (resolve, reject) {
-        axios.get(`${api}/zoos/`).then((res) => {
+        axios.get(`${api}/zoos/${zoo?await zoo.getZooSlug():""}`).then((res) => {
             try {
-                if(zoo) {
-                    resolve(res.data.zoos.filter(zoo => zoo.name.compare("Toronto Zoo") >= 0.7)[0])
-                } else resolve(res.data)
+                resolve(res.data)
             } catch(err) {
                 reject(err)
             }
@@ -162,6 +176,51 @@ async function getMeets(habitatID, zlsession) {
     })
 }
 
+async function getLatestVersion() {
+    return new Promise((resolve, reject) => {
+        axios.get(api+`release/latest`).then(res => {
+            resolve(res.data.version)
+        }).catch((err) => reject(err))
+    })
+}
+
+async function getVersionChangelog(version) {
+    return new Promise((resolve, reject) => {
+        axios.get(api+`release/check?currentVersion=${version}`).then(res => {
+            resolve(res.data.version)
+        }).catch((err) => reject(err))
+    })
+}
+
+async function login(email, password) {
+    return new Promise((resolve, reject) => {
+        var data = {
+            email: email,
+            password: password,
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36'
+        }
+        axios.post(api + `admin/users/login`, JSON.stringify(data), {
+            headers: {
+                "accept": "application/json",
+                "accept-language": "en-US,en;q=0.9",
+                "cache-control": "no-cache",
+                "content-type": "application/json",
+                "pragma": "no-cache",
+                "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-ch-ua-platform": "\"Windows\"",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin"
+            },
+            withCredentials: true
+        }).then(res => {
+            
+            resolve({ zl_session: getCookie("zl_session", res.headers["set-cookie"][0]), data: res.data })
+        }).catch((err) => reject(err))
+    })
+}
+
 String.prototype.getZooSlug = getZooSlug;
 String.prototype.getHabitatSlug = getHabitatSlug;
 String.prototype.compare = compareTwoStrings;
@@ -172,5 +231,8 @@ module.exports = {
     compareTwoStrings,
     getZoos,
     getHabitats,
-    getMeets
+    getMeets,
+    getLatestVersion,
+    getVersionChangelog,
+    login
 };
