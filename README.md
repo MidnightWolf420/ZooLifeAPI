@@ -2,56 +2,85 @@
 
 * [Installation](#installation)
 * [Common Usage](#common-usage)
+    - [Login](#login)
+    - [Get Latest Version](#get-latest-version)
+    - [Get Version Changelog](#get-version-changelog)
 	- [Get Zoos](#get-zoos)
 	- [Get Habitats](#get-habitats)
 	- [Get Meets](#get-meets)
 
 ## Installation
 ```
-npm install MidnightWolf420/ZooLifeAPI --save
+npm install zoolife_api --save
 ```
 
 ## Common Usage
 
 ```js
-const { getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabitats, getMeets } = require('zoolife_api')
+const { login, getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabitats, getMeets, getLatestVersion, getVersionChangeLog } = require('zoolife_api');
+```
+
+### Login
+
+```js
+login("email", "password").then(res => {
+    console.log(`Logged In As ${res.data.user.username}`);
+    //zl_session is res.zl_session
+    //user data is res.data
+})
+```
+
+### Get Latest Version
+
+```js
+getLatestVersion().then(version => {
+    console.log(version);
+})
+```
+
+### Get Version Changelog
+
+```js
+getVersionChangelog(version).then(data => {
+    console.log(data);
+})
 ```
 
 ### Get Zoos
 
 ```js
-getZoos().then(async(json) => {
-    console.log(json)
+getZoos().then((data) => {
+    console.log(data);
 })
 ```
 or
 ```js
-getZoos("Toronto Zoo").then(async(json) => {
-    console.log(json)
+getZoos("Toronto Zoo").then((data) => {
+    console.log(data);
 })
 ```
 
 ### Get Habitats
 
 ```js
-var habitats = await getHabitats(null, "Amur Leopards", zl_session)
-console.log(habitats)
+var habitats = await getHabitats(null, "Amur Leopards", zl_session);
+console.log(habitats);
 ```
 or
 ```js
-var habitats = await getHabitats(null, null, zl_session)
-console.log(habitats)
+var habitats = await getHabitats(null, null, zl_session);
+console.log(habitats);
 ```
 or
 ```js
-var habitats = await getHabitats("Toronto Zoo", null, zl_session)
-console.log(habitats)
+var habitats = await getHabitats("Toronto Zoo", null, zl_session);
+console.log(habitats);
 ```
 
 ### Get Meets
 
 ```js
-var habitats = await getHabitats(null, "Amur Leopards", zl_session)
-var meets = await getMeets(habitats._id, zl_session)
-console.log(meets)
+var habitats = await getHabitats(null, "Amur Leopards", zl_session);
+var meets = await getMeets(habitats._id, zl_session);
+console.log(meets);
 ```
