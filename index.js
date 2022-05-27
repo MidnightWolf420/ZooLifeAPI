@@ -238,7 +238,7 @@ async function getSchedules(startTime, endTime, zlsession) {
             "Referrer-Policy": "strict-origin-when-cross-origin"
         }
         if(zlsession) headers["Cookie"] = `zl_session=${zlsession};`;
-        axios.post(api + `livetalks/schedule?startTime=${new Date(startTime).getTime()}&endTime=${new Date(endTime).getTime()}`, JSON.stringify(data), {
+        axios.get(api + `livetalks/schedule?startTime=${new Date(startTime).getTime()}&endTime=${new Date(endTime).getTime()}`, {
             headers: headers
         }).then(res => {
             resolve(res.data)
