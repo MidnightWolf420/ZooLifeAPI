@@ -46,6 +46,14 @@ getVersionChangelog(version).then(data => {
 })
 ```
 
+### Get Schedules
+
+```js
+getSchedules("05/27/2022 12:00:00", "05/28/2022 9:00:00", zlsession).then(data => {
+    console.log(data);
+})
+```
+
 ### Get Zoos
 
 ```js
