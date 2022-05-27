@@ -25,7 +25,7 @@ const { login, getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabita
 ```js
 login("email", "password").then(res => {
     console.log(`Logged In As ${res.data.user.username}`);
-    //zl_session is res.zl_session
+    //zlsession is res.zl_session
     //user data is res.data
 })
 ```
