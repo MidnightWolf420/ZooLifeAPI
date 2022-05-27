@@ -26,7 +26,7 @@ const { login, getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabita
 ```js
 login("email", "password").then(res => {
     console.log(`Logged In As ${res.data.user.username}`);
-    //zlsession is res.zl_session
+    //zl_session is res.zl_session
     //user data is res.data
 })
 ```
@@ -50,7 +50,7 @@ getVersionChangelog(version).then(data => {
 ### Get Schedules
 
 ```js
-getSchedules("05/27/2022 12:00:00", "05/28/2022 9:00:00", zlsession).then(data => {
+getSchedules("05/27/2022 12:00:00", "05/28/2022 9:00:00", zl_session).then(data => {
     console.log(data);
 })
 ```
