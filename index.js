@@ -31,16 +31,30 @@ async function getZooSlug(name) {
 async function getHabitatSlug(name) {
     if(!name){ name = this; }
     if(/([a-z]|[0-9]){1,}(-([a-z]|[0-9]){1,}){0,}/.test(name)&&!name.includes(" ")) {
-        var data = await getHabitats(null, null);
-        data = data.filter(habitat => habitat.slug == name);
-        var output = {
-            animal: {
-                name: data.filter(habitat => habitat.slug == name)[0].animal,
-                slug: data.filter(habitat => habitat.slug == name)[0].slug
-            },
-            zoo: data.filter(habitat => habitat.slug == name)[0].zoo
+        try {
+            var data = await getHabitats(null, null);
+            data = data.filter(habitat => habitat.slug == name);
+            var output = {
+                animal: {
+                    name: data.filter(habitat => habitat.slug == name)[0].animal,
+                    slug: data.filter(habitat => habitat.slug == name)[0].slug
+                },
+                zoo: data.filter(habitat => habitat.slug == name)[0].zoo
+            }
+            return output;
+        } catch(err) {
+            name = name.toString()
+            var data = await getHabitats()
+            //console.log(data)
+            var output = {
+                animal: {
+                    name: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].animal,
+                    slug: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].slug
+                },
+                zoo: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].zoo
+            }
+            return output;
         }
-        return output;
     } else {
         name = name.toString()
         var data = await getHabitats()
