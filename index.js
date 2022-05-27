@@ -221,6 +221,36 @@ async function login(email, password) {
     })
 }
 
+async function getSchedules(startTime, endTime, zlsession) {
+    return new Promise((resolve, reject) => {
+        var data = {
+            email: email,
+            password: password,
+            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36'
+        }
+        var headers = {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "en-US,en;q=0.9",
+            "cache-control": "no-cache",
+            "pragma": "no-cache",
+            "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "Referer": "https://www.zoolife.tv/map",
+            "Referrer-Policy": "strict-origin-when-cross-origin"
+        }
+        if(zlsession) headers["Cookie"] = `zl_session=${zlsession};`;
+        axios.post(api + `livetalks/schedule?startTime=${new Date(startTime).getTime()}&endTime=${new Date(endTime).getTime()}`, JSON.stringify(data), {
+            headers: headers
+        }).then(res => {
+            resolve(res.data)
+        }).catch((err) => reject(err))
+    })
+}
+
 String.prototype.getZooSlug = getZooSlug;
 String.prototype.getHabitatSlug = getHabitatSlug;
 String.prototype.compare = compareTwoStrings;
@@ -234,5 +264,6 @@ module.exports = {
     getMeets,
     getLatestVersion,
     getVersionChangelog,
-    login
+    login,
+    getSchedules
 };
