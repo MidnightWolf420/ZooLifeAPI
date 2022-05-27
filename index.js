@@ -45,26 +45,24 @@ async function getHabitatSlug(name) {
         } catch(err) {
             name = name.toString()
             var data = await getHabitats()
-            //console.log(data)
             var output = {
                 animal: {
-                    name: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].animal,
-                    slug: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].slug
+                    name: data.filter(habitat => habitat.animal.compare(name) >= 0.5)[0].animal,
+                    slug: data.filter(habitat => habitat.animal.compare(name) >= 0.5)[0].slug
                 },
-                zoo: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].zoo
+                zoo: data.filter(habitat => habitat.animal.compare(name) >= 0.5)[0].zoo
             }
             return output;
         }
     } else {
         name = name.toString()
         var data = await getHabitats()
-        //console.log(data)
         var output = {
             animal: {
-                name: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].animal,
-                slug: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].slug
+                name: data.filter(habitat => habitat.animal.compare(name) >= 0.5)[0].animal,
+                slug: data.filter(habitat => habitat.animal.compare(name) >= 0.5)[0].slug
             },
-            zoo: data.filter(habitat => habitat.animal.compare(name) >= 0.7)[0].zoo
+            zoo: data.filter(habitat => habitat.animal.compare(name) >= 0.5)[0].zoo
         }
         return output;
     }
@@ -150,7 +148,7 @@ async function getHabitats(zoo, habitat, zlsession) {
             }).then(res => {
                 return res.data
             }).then(data => {
-                resolve(data.habitats.filter(zooData => zooData.zoo.name.compare(zoo.toString()) >= 0.7))
+                resolve(data.habitats.filter(zooData => zooData.zoo.name.compare(zoo.toString()) >= 0.5))
             }).catch((err) => reject(err))
         } else {
             axios.get(api+"habitats", {
