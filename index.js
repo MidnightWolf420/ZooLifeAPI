@@ -223,11 +223,6 @@ async function login(email, password) {
 
 async function getSchedules(startTime, endTime, zlsession) {
     return new Promise((resolve, reject) => {
-        var data = {
-            email: email,
-            password: password,
-            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36'
-        }
         var headers = {
             "accept": "application/json, text/plain, */*",
             "accept-language": "en-US,en;q=0.9",
