@@ -17,7 +17,7 @@ npm install zoolife_api --save
 ## Common Usage
 
 ```js
-const { login, getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabitats, getMeets, getLatestVersion, getVersionChangeLog } = require('zoolife_api');
+const { login, getZooSlug, getHabitatSlug, compareTwoStrings, getZoos, getHabitats, getMeets, getLatestVersion, getVersionChangeLog, getSchedules } = require('zoolife_api');
 ```
 
 ### Login
