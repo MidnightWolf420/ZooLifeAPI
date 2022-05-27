@@ -4,8 +4,7 @@ var api = "https://www.zoolife.tv/api/";
 
 function getCookie(cname, cookies) {
     let name = cname + "=";
-    let decodedCookie = cookies;
-    let ca = decodedCookie.split(';');
+    let ca = cookies.split(';');
     for(let i = 0; i <ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) == ' ') {
